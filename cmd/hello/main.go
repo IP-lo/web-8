@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -15,8 +14,8 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "postgres"
-	dbname   = "sandbox"
+	password = "BKMZ661248082"
+	dbname   = "Sandbox"
 )
 
 type Handlers struct {
@@ -84,9 +83,6 @@ func (dp *DatabaseProvider) InsertHello(msg string) error {
 }
 
 func main() {
-	// Считываем аргументы командной строки
-	address := flag.String("address", "127.0.0.1:8081", "адрес для запуска сервера")
-	flag.Parse()
 
 	// Формирование строки подключения для postgres
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
@@ -110,7 +106,7 @@ func main() {
 	http.HandleFunc("/post", h.PostHello)
 
 	// Запускаем веб-сервер на указанном адресе
-	err = http.ListenAndServe(*address, nil)
+	err = http.ListenAndServe(":8081", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
